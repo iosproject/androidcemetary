@@ -19,7 +19,6 @@ import android.view.animation.Animation;
 
                 Intent intent = new Intent();
                 intent.setClass(SplashActivity.this, HomeActivity.class);
-
                 SplashActivity.this.startActivity(intent);
                 SplashActivity.this.finish();
 
