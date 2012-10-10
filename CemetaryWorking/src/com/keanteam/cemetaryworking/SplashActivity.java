@@ -1,33 +1,43 @@
 package com.keanteam.cemetaryworking;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.animation.Animation;
 
-    public class SplashActivity extends Activity {
-    private static final int SPLASH_DISPLAY_TIME = 4000; // splash screen delay time
+public class SplashActivity extends Activity
+{
+    private static final long DELAY = 3000;
+    private boolean scheduled = false;
+    private Timer splashTimer;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-
-                Intent intent = new Intent();
-                intent.setClass(SplashActivity.this, HomeActivity.class);
-                SplashActivity.this.startActivity(intent);
+        splashTimer = new Timer();
+        splashTimer.schedule(new TimerTask()
+        {
+            public void run()
+            {
                 SplashActivity.this.finish();
-
-                // transition from splash to main menu
-                overridePendingTransition(R.anim.homefadein,
-                        R.anim.splashfadeout);
-
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
-        }, SPLASH_DISPLAY_TIME);
+         }, DELAY);
+       scheduled = true;
     }
 
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if (scheduled)
+            splashTimer.cancel();
+        splashTimer.purge();
+    }
 }
