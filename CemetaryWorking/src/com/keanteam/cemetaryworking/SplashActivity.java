@@ -2,15 +2,13 @@ package com.keanteam.cemetaryworking;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
 
 public class SplashActivity extends Activity
 {
-    private static final long DELAY = 3000;
+    private static final long DELAY = 2000;
     private boolean scheduled = false;
     private Timer splashTimer;
 
